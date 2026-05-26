@@ -1,8 +1,6 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const flash = require('connect-flash');
 const path = require('path');
 
 const { passUser } = require('./middleware/auth');
@@ -27,14 +25,40 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Session & Flash
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'perpustakaan-secret',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 day
-}));
-app.use(flash());
+// Custom Cookie-Based Flash Middleware
+app.use((req, res, next) => {
+  let flashData = {};
+  if (req.cookies && req.cookies.flash) {
+    try {
+      flashData = JSON.parse(req.cookies.flash);
+    } catch (e) {
+      flashData = {};
+    }
+  }
+
+  req.flash = function(type, message) {
+    if (type && message) {
+      if (!flashData[type]) {
+        flashData[type] = [];
+      }
+      flashData[type].push(message);
+      res.cookie('flash', JSON.stringify(flashData), { httpOnly: true, maxAge: 10000 });
+      return;
+    } else if (type) {
+      const messages = flashData[type] || [];
+      delete flashData[type];
+      if (Object.keys(flashData).length === 0) {
+        res.clearCookie('flash');
+      } else {
+        res.cookie('flash', JSON.stringify(flashData), { httpOnly: true, maxAge: 10000 });
+      }
+      return messages;
+    }
+    return [];
+  };
+
+  next();
+});
 
 // Pass flash messages and user to all views
 app.use((req, res, next) => {
