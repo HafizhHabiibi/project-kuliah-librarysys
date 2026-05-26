@@ -62,49 +62,49 @@ Aplikasi ini dilengkapi dengan antarmuka premium yang dinamis, mendukung **Mode 
 ```text
 project-kuliah-perpustakaan/
 │
-├── config/                 # Konfigurasi basis data Mongoose
+├── config/
 │   └── db.js
 │
-├── controllers/            # Logika bisnis aplikasi (MVC - Controller)
+├── controllers/
 │   ├── authController.js
 │   ├── bookController.js
 │   ├── borrowController.js
 │   └── profileController.js
 │
-├── middleware/             # Middleware otentikasi & hak akses (Role)
+├── middleware/
 │   ├── auth.js
 │   └── role.js
 │
-├── models/                 # Skema MongoDB (MVC - Model)
+├── models/
 │   ├── Book.js
 │   ├── Borrow.js
 │   └── User.js
 │
-├── public/                 # Aset statis client-side
+├── public/
 │   ├── css/
-│   │   └── style.css       # Sistem desain CSS kustom (Light/Dark AMOLED)
+│   │   └── style.css
 │   └── js/
-│       └── main.js         # Tema toggle & logika client
+│       └── main.js
 │
-├── routes/                 # Endpoint routing aplikasi
+├── routes/
 │   ├── authRoutes.js
 │   ├── bookRoutes.js
 │   ├── borrowRoutes.js
 │   └── profileRoutes.js
 │
-├── views/                  # UI Templates (MVC - View)
-│   ├── auth/               # Halaman Login & Register
-│   ├── books/              # Halaman CRUD & Detail Buku
-│   ├── layouts/            # File template layout (main.ejs)
-│   ├── partials/           # Bagian UI modular (Alert, Navbar)
-│   ├── dashboard.ejs       # Halaman utama setelah masuk
-│   └── profile.ejs         # Halaman kelola akun
+├── views/
+│   ├── auth/
+│   ├── books/
+│   ├── layouts/
+│   ├── partials/
+│   ├── dashboard.ejs
+│   └── profile.ejs
 │
-├── .env                    # Variabel lingkungan (Kunci database & rahasia)
-├── app.js                  # Pendaftaran middleware dan routes Express
-├── create-admin.js         # Skrip utilitas instan pembuat/promotor akun Admin
-├── package.json            # Daftar pustaka & skrip proyek
-└── server.js               # Titik masuk utama aplikasi (Entrypoint)
+├── .env
+├── app.js
+├── create-admin.js
+├── package.json
+└── server.js
 ```
 
 ---
