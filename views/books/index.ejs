@@ -1,0 +1,79 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>
+      <span class="material-icons page-icon">menu_book</span>
+      Daftar Buku
+    </h1>
+    <% if (user.role === 'admin') { %>
+      <a href="/books/add" class="btn btn-primary">
+        <span class="material-icons">add_circle</span>
+        Tambah Buku
+      </a>
+    <% } %>
+  </div>
+
+  <div class="filter-bar">
+    <form action="/books" method="GET" class="search-form">
+      <div class="search-input-wrapper">
+        <span class="material-icons search-icon">search</span>
+        <input type="text" name="search" class="form-input search-input" placeholder="Cari judul atau penulis..." value="<%= search %>">
+      </div>
+      <select name="kategori" class="form-input form-select" onchange="this.form.submit()">
+        <option value="">Semua Kategori</option>
+        <% categories.forEach(cat => { %>
+          <option value="<%= cat %>" <%= selectedKategori === cat ? 'selected' : '' %>><%= cat %></option>
+        <% }) %>
+      </select>
+      <button type="submit" class="btn btn-primary">
+        <span class="material-icons">search</span>
+        Cari
+      </button>
+    </form>
+  </div>
+
+  <% if (books.length === 0) { %>
+    <div class="empty-state">
+      <span class="material-icons empty-icon">library_books</span>
+      <h3>Belum ada buku</h3>
+      <p>
+        <% if (search || selectedKategori) { %>
+          Tidak ada buku yang sesuai dengan pencarian.
+          <a href="/books">Reset filter</a>
+        <% } else if (user.role === 'admin') { %>
+          Mulai tambahkan buku ke perpustakaan.
+          <a href="/books/add">Tambah Buku</a>
+        <% } else { %>
+          Belum ada buku yang tersedia saat ini.
+        <% } %>
+      </p>
+    </div>
+  <% } else { %>
+    <div class="books-grid">
+      <% books.forEach(book => { %>
+        <div class="book-card">
+          <div class="book-card-header">
+            <span class="book-category"><%= book.kategori %></span>
+            <span class="book-year"><%= book.tahunTerbit %></span>
+          </div>
+          <div class="book-card-body">
+            <h3 class="book-title"><%= book.judul %></h3>
+            <p class="book-author">
+              <span class="material-icons">person</span>
+              <%= book.penulis %>
+            </p>
+          </div>
+          <div class="book-card-footer">
+            <span class="book-stock <%= book.stok > 0 ? 'stock-available' : 'stock-empty' %>">
+              <span class="material-icons">inventory_2</span>
+              Stok: <%= book.stok %>
+            </span>
+            <a href="/books/detail/<%= book._id %>" class="btn btn-sm btn-outline">
+              <span class="material-icons">visibility</span>
+              Detail
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>

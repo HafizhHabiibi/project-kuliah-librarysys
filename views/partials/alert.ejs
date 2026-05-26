@@ -1,0 +1,25 @@
+<% if (typeof messages !== 'undefined') { %>
+  <% if (messages.success && messages.success.length > 0) { %>
+    <% messages.success.forEach(msg => { %>
+      <div class="alert alert-success">
+        <span class="material-icons alert-icon">check_circle</span>
+        <span class="alert-text"><%= msg %></span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+    <% }) %>
+  <% } %>
+
+  <% if (messages.error && messages.error.length > 0) { %>
+    <% messages.error.forEach(msg => { %>
+      <div class="alert alert-error">
+        <span class="material-icons alert-icon">error</span>
+        <span class="alert-text"><%= msg %></span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+    <% }) %>
+  <% } %>
+<% } %>

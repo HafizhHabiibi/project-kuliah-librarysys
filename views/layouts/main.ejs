@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sistem Manajemen Perpustakaan - Kelola buku, peminjaman, dan pengembalian dengan mudah">
+  <title><%= typeof title !== 'undefined' ? title : 'Perpustakaan' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="main-content">
+    <div class="container">
+      <% if (typeof title === 'undefined' || (!title.toLowerCase().includes('login') && !title.toLowerCase().includes('register'))) { %>
+        <%- include('../partials/alert') %>
+      <% } %>
+      <%- body %>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p><span class="material-icons footer-icon">local_library</span> Perpustakaan &copy; <%= new Date().getFullYear() %></p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

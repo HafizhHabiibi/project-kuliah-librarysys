@@ -1,0 +1,68 @@
+<div class="page-container">
+  <a href="/books/detail/<%= book._id %>" class="back-link">
+    <span class="material-icons">arrow_back</span>
+    Kembali ke Detail Buku
+  </a>
+
+  <div class="form-card">
+    <div class="form-card-header">
+      <span class="material-icons form-header-icon">edit</span>
+      <h1>Edit Buku</h1>
+    </div>
+
+    <form action="/books/edit/<%= book._id %>" method="POST" class="book-form">
+      <div class="form-group">
+        <label for="judul" class="form-label">
+          <span class="material-icons">title</span>
+          Judul Buku
+        </label>
+        <input type="text" id="judul" name="judul" class="form-input" value="<%= book.judul %>" required>
+      </div>
+
+      <div class="form-group">
+        <label for="penulis" class="form-label">
+          <span class="material-icons">person</span>
+          Penulis
+        </label>
+        <input type="text" id="penulis" name="penulis" class="form-input" value="<%= book.penulis %>" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="kategori" class="form-label">
+            <span class="material-icons">category</span>
+            Kategori
+          </label>
+          <input type="text" id="kategori" name="kategori" class="form-input" value="<%= book.kategori %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="tahunTerbit" class="form-label">
+            <span class="material-icons">calendar_today</span>
+            Tahun Terbit
+          </label>
+          <input type="number" id="tahunTerbit" name="tahunTerbit" class="form-input" value="<%= book.tahunTerbit %>" required min="1900" max="2099">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="stok" class="form-label">
+          <span class="material-icons">inventory_2</span>
+          Stok
+        </label>
+        <input type="number" id="stok" name="stok" class="form-input" value="<%= book.stok %>" required min="0">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          <span class="material-icons">save</span>
+          Simpan Perubahan
+        </button>
+        <a href="/books/detail/<%= book._id %>" class="btn btn-outline">
+          <span class="material-icons">cancel</span>
+          Batal
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

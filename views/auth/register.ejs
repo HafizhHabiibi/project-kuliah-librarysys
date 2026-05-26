@@ -1,0 +1,64 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <span class="material-icons auth-icon">person_add</span>
+      <h1>Buat Akun Baru</h1>
+      <p>Daftar untuk mulai meminjam buku</p>
+    </div>
+
+    <%- include('../partials/alert') %>
+
+    <form action="/auth/register" method="POST" class="auth-form">
+      <div class="form-group">
+        <label for="nama" class="form-label">
+          <span class="material-icons">badge</span>
+          Nama Lengkap
+        </label>
+        <input type="text" id="nama" name="nama" class="form-input" placeholder="Masukkan nama lengkap" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <span class="material-icons">email</span>
+          Email
+        </label>
+        <input type="email" id="email" name="email" class="form-input" placeholder="contoh@email.com" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <span class="material-icons">lock</span>
+          Password
+        </label>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" class="form-input" placeholder="Minimal 6 karakter" required minlength="6">
+          <button type="button" class="password-toggle" onclick="togglePassword('password', this)">
+            <span class="material-icons">visibility_off</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password2" class="form-label">
+          <span class="material-icons">lock_outline</span>
+          Konfirmasi Password
+        </label>
+        <div class="password-wrapper">
+          <input type="password" id="password2" name="password2" class="form-input" placeholder="Ulangi password" required minlength="6">
+          <button type="button" class="password-toggle" onclick="togglePassword('password2', this)">
+            <span class="material-icons">visibility_off</span>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">
+        <span class="material-icons">how_to_reg</span>
+        Daftar
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Sudah punya akun? <a href="/auth/login">Masuk disini</a></p>
+    </div>
+  </div>
+</div>

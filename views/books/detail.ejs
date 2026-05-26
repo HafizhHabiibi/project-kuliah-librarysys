@@ -1,0 +1,85 @@
+<div class="page-container">
+  <a href="/books" class="back-link">
+    <span class="material-icons">arrow_back</span>
+    Kembali ke Daftar Buku
+  </a>
+
+  <div class="detail-card">
+    <div class="detail-header">
+      <div>
+        <span class="book-category"><%= book.kategori %></span>
+        <h1 class="detail-title"><%= book.judul %></h1>
+      </div>
+    </div>
+
+    <div class="detail-info-grid">
+      <div class="detail-info-item">
+        <span class="material-icons">person</span>
+        <div>
+          <span class="detail-label">Penulis</span>
+          <span class="detail-value"><%= book.penulis %></span>
+        </div>
+      </div>
+
+      <div class="detail-info-item">
+        <span class="material-icons">category</span>
+        <div>
+          <span class="detail-label">Kategori</span>
+          <span class="detail-value"><%= book.kategori %></span>
+        </div>
+      </div>
+
+      <div class="detail-info-item">
+        <span class="material-icons">calendar_today</span>
+        <div>
+          <span class="detail-label">Tahun Terbit</span>
+          <span class="detail-value"><%= book.tahunTerbit %></span>
+        </div>
+      </div>
+
+      <div class="detail-info-item">
+        <span class="material-icons">inventory_2</span>
+        <div>
+          <span class="detail-label">Stok Tersedia</span>
+          <span class="detail-value <%= book.stok > 0 ? 'stock-available' : 'stock-empty' %>"><%= book.stok %> buku</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <% if (user.role === 'user') { %>
+        <% if (book.stok > 0 && !alreadyBorrowed) { %>
+          <form action="/borrow/<%= book._id %>" method="POST" class="inline-form">
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Pinjam buku ini?')">
+              <span class="material-icons">bookmark_add</span>
+              Pinjam Buku
+            </button>
+          </form>
+        <% } else if (alreadyBorrowed) { %>
+          <button class="btn btn-disabled" disabled>
+            <span class="material-icons">bookmark_added</span>
+            Sudah Dipinjam
+          </button>
+        <% } else { %>
+          <button class="btn btn-disabled" disabled>
+            <span class="material-icons">block</span>
+            Stok Habis
+          </button>
+        <% } %>
+      <% } %>
+
+      <% if (user.role === 'admin') { %>
+        <a href="/books/edit/<%= book._id %>" class="btn btn-warning">
+          <span class="material-icons">edit</span>
+          Edit Buku
+        </a>
+        <form action="/books/delete/<%= book._id %>" method="POST" class="inline-form">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus buku ini?')">
+            <span class="material-icons">delete</span>
+            Hapus Buku
+          </button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</div>

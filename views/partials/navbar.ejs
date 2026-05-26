@@ -1,0 +1,70 @@
+<nav class="navbar">
+  <div class="container navbar-container">
+    <a href="<%= typeof user !== 'undefined' && user ? '/dashboard' : '/' %>" class="navbar-brand">
+      <span class="material-icons brand-icon">local_library</span>
+      <span class="brand-text">Perpustakaan</span>
+    </a>
+
+    <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+      <span class="material-icons">menu</span>
+    </button>
+
+    <div class="navbar-menu" id="navbarMenu">
+      <% if (typeof user !== 'undefined' && user) { %>
+        <a href="/dashboard" class="nav-link">
+          <span class="material-icons">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/books" class="nav-link">
+          <span class="material-icons">menu_book</span>
+          <span>Buku</span>
+        </a>
+
+        <% if (user.role === 'admin') { %>
+          <a href="/books/add" class="nav-link">
+            <span class="material-icons">add_circle</span>
+            <span>Tambah Buku</span>
+          </a>
+        <% } %>
+
+        <% if (user.role === 'user') { %>
+          <a href="/borrow/mybooks" class="nav-link">
+            <span class="material-icons">bookmark</span>
+            <span>Pinjaman Saya</span>
+          </a>
+        <% } %>
+
+        <a href="/profile" class="nav-link">
+          <span class="material-icons">person</span>
+          <span>Profil</span>
+        </a>
+
+        <div class="nav-right">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <span class="material-icons" id="themeIcon">dark_mode</span>
+          </button>
+          <a href="/auth/logout" class="nav-link nav-link-logout">
+            <span class="material-icons">logout</span>
+            <span>Logout</span>
+          </a>
+        </div>
+      <% } else { %>
+        <div class="nav-right">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <span class="material-icons" id="themeIcon">dark_mode</span>
+          </button>
+          <% if (typeof title === 'undefined' || (!title.toLowerCase().includes('login') && !title.toLowerCase().includes('register'))) { %>
+            <a href="/auth/login" class="nav-link">
+              <span class="material-icons">login</span>
+              <span>Login</span>
+            </a>
+            <a href="/auth/register" class="nav-link btn-nav-register">
+              <span class="material-icons">person_add</span>
+              <span>Register</span>
+            </a>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</nav>

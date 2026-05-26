@@ -1,0 +1,102 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>
+      <span class="material-icons page-icon">bookmark</span>
+      Pinjaman Saya
+    </h1>
+    <a href="/books" class="btn btn-primary">
+      <span class="material-icons">menu_book</span>
+      Cari Buku
+    </a>
+  </div>
+
+  <% 
+    const activeBorrows = borrows.filter(b => b.status === 'dipinjam');
+    const returnedBorrows = borrows.filter(b => b.status === 'dikembalikan');
+  %>
+
+  <% if (borrows.length === 0) { %>
+    <div class="empty-state">
+      <span class="material-icons empty-icon">bookmark_border</span>
+      <h3>Belum ada peminjaman</h3>
+      <p>Anda belum meminjam buku apapun. <a href="/books">Cari buku sekarang</a></p>
+    </div>
+  <% } else { %>
+
+    <% if (activeBorrows.length > 0) { %>
+      <div class="section">
+        <h2 class="section-title">
+          <span class="material-icons">schedule</span>
+          Sedang Dipinjam (<%= activeBorrows.length %>)
+        </h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Judul Buku</th>
+                <th>Penulis</th>
+                <th>Tanggal Pinjam</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% activeBorrows.forEach(borrow => { %>
+                <tr>
+                  <td>
+                    <a href="/books/detail/<%= borrow.book._id %>" class="table-link"><%= borrow.book.judul %></a>
+                  </td>
+                  <td><%= borrow.book.penulis %></td>
+                  <td><%= new Date(borrow.tanggalPinjam).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+                  <td>
+                    <form action="/borrow/return/<%= borrow._id %>" method="POST" class="inline-form">
+                      <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Kembalikan buku ini?')">
+                        <span class="material-icons">assignment_return</span>
+                        Kembalikan
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% } %>
+
+    <% if (returnedBorrows.length > 0) { %>
+      <div class="section">
+        <h2 class="section-title">
+          <span class="material-icons">check_circle</span>
+          Riwayat Pengembalian (<%= returnedBorrows.length %>)
+        </h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Judul Buku</th>
+                <th>Penulis</th>
+                <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% returnedBorrows.forEach(borrow => { %>
+                <tr>
+                  <td>
+                    <a href="/books/detail/<%= borrow.book._id %>" class="table-link"><%= borrow.book.judul %></a>
+                  </td>
+                  <td><%= borrow.book.penulis %></td>
+                  <td><%= new Date(borrow.tanggalPinjam).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+                  <td><%= borrow.tanggalKembali ? new Date(borrow.tanggalKembali).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-' %></td>
+                  <td><span class="badge badge-success">Dikembalikan</span></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% } %>
+
+  <% } %>
+</div>

@@ -1,0 +1,107 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>
+      <span class="material-icons page-icon">dashboard</span>
+      Dashboard
+    </h1>
+    <p class="dashboard-welcome">Selamat datang, <strong><%= user.nama %></strong>!
+      <span class="badge badge-<%= user.role %>"><%= user.role === 'admin' ? 'Admin' : 'User' %></span>
+    </p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <span class="material-icons">menu_book</span>
+      </div>
+      <div class="stat-info">
+        <h3><%= typeof totalBooks !== 'undefined' ? totalBooks : 0 %></h3>
+        <p>Total Buku</p>
+      </div>
+    </div>
+
+    <% if (user.role === 'admin') { %>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-secondary">
+          <span class="material-icons">people</span>
+        </div>
+        <div class="stat-info">
+          <h3><%= typeof totalUsers !== 'undefined' ? totalUsers : 0 %></h3>
+          <p>Total User</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-warning">
+          <span class="material-icons">swap_horiz</span>
+        </div>
+        <div class="stat-info">
+          <h3><%= typeof activeBorrows !== 'undefined' ? activeBorrows : 0 %></h3>
+          <p>Sedang Dipinjam</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-success">
+          <span class="material-icons">category</span>
+        </div>
+        <div class="stat-info">
+          <h3><%= typeof totalCategories !== 'undefined' ? totalCategories : 0 %></h3>
+          <p>Kategori</p>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-warning">
+          <span class="material-icons">bookmark</span>
+        </div>
+        <div class="stat-info">
+          <h3><%= typeof myBorrows !== 'undefined' ? myBorrows : 0 %></h3>
+          <p>Buku Dipinjam</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-success">
+          <span class="material-icons">check_circle</span>
+        </div>
+        <div class="stat-info">
+          <h3><%= typeof myReturned !== 'undefined' ? myReturned : 0 %></h3>
+          <p>Dikembalikan</p>
+        </div>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="dashboard-actions">
+    <h2>
+      <span class="material-icons">bolt</span>
+      Aksi Cepat
+    </h2>
+    <div class="action-grid">
+      <a href="/books" class="action-card">
+        <span class="material-icons">menu_book</span>
+        <span>Lihat Buku</span>
+      </a>
+
+      <% if (user.role === 'admin') { %>
+        <a href="/books/add" class="action-card">
+          <span class="material-icons">add_circle</span>
+          <span>Tambah Buku</span>
+        </a>
+      <% } %>
+
+      <% if (user.role === 'user') { %>
+        <a href="/borrow/mybooks" class="action-card">
+          <span class="material-icons">bookmark</span>
+          <span>Pinjaman Saya</span>
+        </a>
+      <% } %>
+
+      <a href="/profile" class="action-card">
+        <span class="material-icons">person</span>
+        <span>Profil Saya</span>
+      </a>
+    </div>
+  </div>
+</div>
