@@ -219,6 +219,3 @@ Server akan aktif dan dapat diakses di browser pada alamat **[http://localhost:3
 3.  **Validation Check**: Input peminjaman divalidasi silang untuk mencegah peminjaman buku yang sama berulang kali sebelum dikembalikan, serta mencegah peminjaman jika persediaan stok buku di perpustakaan bernilai `0`.
 
 ---
-
-## Lisensi
-Proyek ini dilisensikan di bawah lisensi **ISC**. Dibuat untuk keperluan akademik (proyek kuliah perpustakaan).
